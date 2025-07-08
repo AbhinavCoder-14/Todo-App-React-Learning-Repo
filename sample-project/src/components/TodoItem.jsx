@@ -1,15 +1,13 @@
-import React from "react";
-
+import React, { useState } from "react";
+import Button from "./Button.jsx";
 
 
 const Items = ()=>{
-    return(
-        <div className="items">
-            <input type="checkbox" />
-            <p>Eat</p>
-            <p>...</p>
-        </div>
-    )
+
+
+
+    return
+
 
 }
 export default Items;

@@ -2,7 +2,7 @@ import React from "react";
 
 
 const Button =()=>{
-    return <button>Add Todo</button>
+    return 
 }
 
 export  default Button
