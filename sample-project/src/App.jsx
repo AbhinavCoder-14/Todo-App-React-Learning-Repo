@@ -1,67 +1,40 @@
-import React from "react";
+import React, { createContext, useEffect } from "react";
 import { useState } from "react";
-import Header from "./components/Header.jsx"
-import Button from "./components/Button.jsx";
+import "./style.css";
 
+import AddTodoBtn from "./components/AddTodoBtn.jsx";
+import ShowTodoList from "./components/ShowTodoList.jsx";
+
+export const todoDataContext = createContext()
 
 function App() {
-    const [newTask,setnewTask] = useState("")
-    const [todoList,setTodoList] = useState([])
-
-    const addTaskToList = () =>{
-
-        const settodoList = [...todoList,{
-          id: todoList.length == 0 ? 1 : todoList[todoList.length-1].id + 1,
-          taskName: newTask,
-        }]
-        setTodoList(settodoList)
-    }
-    
-
+   const [todoData, setTodoData] = useState([
+      {
+        id: 1,
+        taskName: "jkl",
+        category: "learning",
+        priority: "high",
+        Completed: false,
+        length: 1,
+      },
+    ]);
   
-  const handleChangesOnInput = (event) =>{
-    setnewTask(event.target.value)
-  }
-
-  const handleDeleteTasks = (id) =>{
-
-    setTodoList(todoList.filter((task)=> task.id!=id))
-  }
-
 
   return (
+    // header
+    <todoDataContext.Provider value={{todoData, setTodoData}}>
+    <div>
+      <AddTodoBtn/>
 
-    <div className="Todo-Container">
-
-      <Header/>
-
-      <input type="text" onChange={handleChangesOnInput} />
-      <button onClick={addTaskToList}>Add Todo</button>
-
-      <div className="items">
-        {todoList.map((task)=>{
-          return(
-            <div className="item">
-              <button onClick={ () => handleDeleteTasks(task.id)}>X</button>
-              <input type="checkbox" key={task.id} />
-              <h1>{task.taskName}</h1>
-
-            </div>
-
-          ) 
-          
-          
-        })}
-
-      </div>
-
-  
-
-
+      <ShowTodoList/>
+      
+      
     </div>
-  )
+
+    </todoDataContext.Provider>
+
+
+  );
 }
-
-
 
 export default App;
