@@ -1,57 +1,30 @@
 import React from "react";
-import { useState,useContext,createContext } from "react";
+import { useState, useContext, createContext } from "react";
 import { todoDataContext } from "../App";
 
 function ShowTodoList() {
-
-    const {todoData, setTodoData} = useContext(todoDataContext);
-
-
-    const [todoList,setTodoList] = useState([])
-    const ThemeContext = createContext();
+  const { todoData, setTodoData } = useContext(todoDataContext);
 
 
-    
-
-  const handleDeleteTasks = (id) =>{
-
-    setTodoList(todoList.filter((task)=> task.id!=id))
-  }
+  const handleDeleteTasks = (id) => {
+    setTodoData(todoData.filter((task) => task.id != id));
+  };
 
   return (
-
-
-
     <div className="Todo-Container">
-
-      <input type="text" onChange={handleChangesOnInput} />
-      <button onClick={addTaskToList}>Add Todo</button>
-
       <div className="items">
-        {todoList.map((task)=>{
-          return(
+        {todoData.map((task) => {
+          return (
             <div className="item">
-              <button onClick={ () => handleDeleteTasks(task.id)}>X</button>
+              <button onClick={() => handleDeleteTasks(task.id)}>X</button>
               <input type="checkbox" key={task.id} />
               <h1>{task.taskName}</h1>
-
             </div>
-
-          ) 
-          
-          
+          );
         })}
-
       </div>
-
-  
-
-
     </div>
-  )
-
-
+  );
 }
-
 
 export default ShowTodoList;
