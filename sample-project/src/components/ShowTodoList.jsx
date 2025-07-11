@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useState, useContext, createContext } from "react";
 import { todoDataContext } from "../App";
 
+import "../style.css"
+
 function ShowTodoList() {
   const { todoData, setTodoData } = useContext(todoDataContext);
 
@@ -12,7 +14,7 @@ function ShowTodoList() {
 
   const MarkAsCompleted = (id) => {
     setTodoData(todoData.map(todo =>{
-      return todo.id == id ? {...todo,Completed:!todo.Completed} : todo
+      return todo.id == id ? {...todo,Completed: !todo.Completed} : todo
     }))
   };
 
@@ -30,14 +32,19 @@ function ShowTodoList() {
               {/* {task.completed ? ():()} */}
               <input type="checkbox" checked={task.Completed} onChange={()=>MarkAsCompleted(task.id)} key={task.id} />
 
+              <div className={task.Completed ? "completed-task" : ""}>
+                <h1 className={task.Completed ? "cut" : ""}>{task.taskName}</h1>
 
-              <h1>{task.taskName}</h1>
-              <span>
-                <p>{task.priority}</p>
-                <p>{task.category}</p>
+                <span>
+                  <p>{task.priority}</p>
+                  <p>{task.category}</p>
 
-              </span>
+                </span>
+              </div>
 
+
+
+             
               
             </div>
           );

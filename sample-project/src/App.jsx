@@ -4,6 +4,7 @@ import "./style.css";
 
 import AddTodoBtn from "./components/AddTodoBtn.jsx";
 import ShowTodoList from "./components/ShowTodoList.jsx";
+import FilterBar from "./components/FilterBar.jsx";
 
 export const todoDataContext = createContext()
 
@@ -30,6 +31,8 @@ function App() {
       
       
     </div>
+
+    <FilterBar/>
 
     </todoDataContext.Provider>
 
