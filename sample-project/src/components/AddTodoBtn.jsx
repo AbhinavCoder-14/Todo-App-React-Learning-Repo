@@ -8,9 +8,9 @@ function AddTodoBtn() {
   const {todoData,setTodoData} = useContext(todoDataContext)
 
   const [isOpenBtn, setIsOpenBtn] = useState(false);
-  const [todoText, setTodoText] = useState("");
-  const [priority, setPriority] = useState("");
-  const [category, setCategory] = useState("");
+  const [todoText, setTodoText] = useState();
+  const [priority, setPriority] = useState("Medium");
+  const [category, setCategory] = useState("Work");
  
   const [isCompleted, setIsCompleted] = useState(false);
 
@@ -26,8 +26,8 @@ function AddTodoBtn() {
 
     setTodoData([...todoData, tempList]);
     setTodoText("");
-    setCategory("");
-    setPriority("");
+    setCategory("Work");
+    setPriority("Medium");
     setIsOpenBtn(false);
     console.log(todoData);
   };
@@ -38,7 +38,7 @@ function AddTodoBtn() {
   return (
     <div>
       {!isOpenBtn ? (
-        <button
+        <button className="add-todo-btn"
           onClick={() => {
             setIsOpenBtn(!isOpenBtn);
           }}
@@ -46,10 +46,10 @@ function AddTodoBtn() {
           + Add New Todo
         </button>
       ) : (
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div>
+          <div className="add-todo-form">
+            <div className="form-group">
+              <label className="form-label">
                 What needs to be done?
               </label>
               <input
@@ -57,21 +57,21 @@ function AddTodoBtn() {
                 value={todoText}
                 onChange={(e) => setTodoText(e.target.value)}
                 placeholder="Enter your todo..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                className="form-input"
                 onKeyPress={(e) => e.key === "Enter" && handleSubmit(e)}
                 autoFocus
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div className="form-grid">
+              <div className="form-group">
+                <label className="form-label">
                   Priority
                 </label>
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="form-select"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -79,14 +79,14 @@ function AddTodoBtn() {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Category
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="form-select"
                 >
                   <option value="personal">Personal</option>
                   <option value="work">Work</option>
@@ -96,10 +96,10 @@ function AddTodoBtn() {
               </div>
             </div>
 
-            <div className="flex gap-3 pt-2">
+            <div className="form-actions">
               <button
                 onClick={handleSubmit}
-                className="flex-1 bg-green-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-600 transition-colors"
+                className="btn primary"
               >
                 Add Todo
               </button>
@@ -108,7 +108,7 @@ function AddTodoBtn() {
                   setIsOpenBtn(false);
                   setTodoText("");
                 }}
-                className="flex-1 bg-gray-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-600 transition-colors"
+                className="btn secondary"
               >
                 Cancel
               </button>

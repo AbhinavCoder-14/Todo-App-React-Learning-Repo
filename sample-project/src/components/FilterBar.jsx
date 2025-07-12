@@ -7,7 +7,8 @@ import "../style.css"
 
 
 function FilterBar(){
-    const { todoData, setTodoData } = useContext(todoDataContext);
+    const { todoData, setTodoData,filter,setFilter,filteredTodos } = useContext(todoDataContext);
+    
 
     const completedCount = todoData.filter(todo=>{
         return (todo.Completed)
@@ -18,17 +19,22 @@ function FilterBar(){
     }).length
 
 
+
+
     
 
 
 
     return(
         <>
-        <div className="tempBor">
-            <button>All ({todoData.length})</button>
-            <button>Completed ({completedCount})</button>
+        <div className="filter-bar">
+            <div className="filter-buttons">
+                <button className="filter-btn" onClick={()=>{setFilter("all")}}>All ({todoData.length})</button>
+                <button className="filter-btn" onClick={()=>{setFilter("completed")}}>Completed ({completedCount})</button>
+                <button className="filter-btn" onClick={()=>{setFilter("active")}}>Active ({active})</button>
 
-            <button>Active ({active})</button>
+            </div>
+
         </div>
 
         
