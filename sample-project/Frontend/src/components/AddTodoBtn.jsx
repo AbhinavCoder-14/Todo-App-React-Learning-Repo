@@ -1,6 +1,6 @@
 import React, { useContext,useEffect } from "react";
 import { useState } from "react";
-import {todoDataContext} from "../App.jsx"
+import {todoDataContext} from "../pages/todo.jsx"
 
 
 function AddTodoBtn() {

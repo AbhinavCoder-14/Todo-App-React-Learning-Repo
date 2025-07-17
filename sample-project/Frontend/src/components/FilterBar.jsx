@@ -1,6 +1,7 @@
 import {useState} from "react";
 import { useContext } from "react";
-import { todoDataContext } from "../App";
+import { todoDataContext } from "../pages/todo.jsx";
+
 
 import "../style.css"
 

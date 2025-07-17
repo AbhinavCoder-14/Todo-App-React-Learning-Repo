@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState, useContext, createContext } from "react";
-import { todoDataContext } from "../App";
+import { todoDataContext } from "../pages/todo.jsx";
 import {
   Plus,
   X,
