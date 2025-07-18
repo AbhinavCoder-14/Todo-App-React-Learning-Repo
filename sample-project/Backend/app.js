@@ -18,12 +18,12 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true,
-  methods: "GET,PUT,POST,DELETE",
-  allowedHeaders: ["Content-Type",Autherization]
-  ]
-}));
+    origin: 'http://localhost:5173',
+    credentials: true,
+    methods: "GET,PUT,POST,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"] // Corrected: "Authorization"
+}))
+
 app.use(checkForAuthCookie("token"))
 
 DbConnect("mongodb://127.0.0.1:27017/todo-app").then(()=>{
@@ -37,7 +37,7 @@ DbConnect("mongodb://127.0.0.1:27017/todo-app").then(()=>{
 
 
 
-app.get("/",restrictTo,(req,res)=>{
+app.get("/",restrictTo(),(req,res)=>{
     console.log("all set")
     res.send({response:"All Set"})
 })

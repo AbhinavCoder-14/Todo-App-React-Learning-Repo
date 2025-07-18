@@ -3,7 +3,6 @@ import { useState, useContext, createContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "axios";
 
-
 import { todoDataContext } from "../pages/todo.jsx";
 import { Trash2 } from "lucide-react";
 
@@ -29,12 +28,13 @@ function ShowTodoList() {
     queryKey: ["todo"],
     queryFn: async () => {
       return await Axios.get("http://localhost:8000/todo/fetch", {
+        // From Frontend/src/components/ShowTodoList.jsx
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json"
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // This is correct for header-based auth
+          "Content-Type": "application/json",
         },
-        withCredentials: true, // ⬅️ only if you're using cookies (optional)
-      }).then((res) => (res.data));
+        withCredentials: true, // This correctly sends cookies (though not strictly needed if relying on Authorization header) // ⬅️ only if you're using cookies (optional)
+      }).then((res) => res.data);
     },
     // refetchOnWindowFocus: false,
   });
