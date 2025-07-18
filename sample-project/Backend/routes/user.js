@@ -47,7 +47,13 @@ userRoutes.post("/login", async (req, res) => {
     });
 
   const token = createTokenForUser(user);
-  res.cookie("token", token);
+  res.cookie("token", token,{
+    
+    httpOnly: true,
+    secure: false, // set to true in production (HTTPS)
+    sameSite: "lax", // or "none" if cross-domain and using HTTPS
+
+  });
   return res.status(200).json({ status: "success" });
 
   // localStorage.setItem("token", token);

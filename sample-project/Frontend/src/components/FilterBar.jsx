@@ -12,11 +12,11 @@ function FilterBar(){
     
 
     const completedCount = todoData.filter(todo=>{
-        return (todo.Completed)
+        return (todo.completed)
     }).length
 
     const active = todoData.filter(todo=>{
-        return (!todo.Completed)
+        return (!todo.completed)
     }).length
 
 
@@ -39,7 +39,7 @@ function FilterBar(){
               filter === 'completed' 
                 ? 'btn-true' 
                 : 'btn-false'
-            }`} onClick={()=>{setFilter("completed")}}>Completed ({completedCount})</button>
+            }`} onClick={()=>{setFilter("completed")}}>completed ({completedCount})</button>
                 <button className={`filter-btn ${
               filter === 'active' 
                 ? 'btn-true' 

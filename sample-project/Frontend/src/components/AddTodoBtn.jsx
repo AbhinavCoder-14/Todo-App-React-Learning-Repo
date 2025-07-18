@@ -17,11 +17,10 @@ function AddTodoBtn() {
 
   const handleSubmit = () => {
     const tempList = {
-      id: todoData.length == 0 ? 1 : todoData[todoData.length - 1].id + 1,
       taskName: todoText,
       category: category,
       priority: priority,
-      Completed: isCompleted,
+      completed: isCompleted,
     };
 
     setTodoData([...todoData, tempList]);

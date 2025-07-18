@@ -14,19 +14,18 @@ export const todoDataContext = createContext();
 function Todo() {
   const [todoData, setTodoData] = useState([
     {
-      id: 1,
-      taskName: "jkl",
+      todoName: "jkl",
       category: "learning",
       priority: "high",
-      Completed: false,
+      completed: false,
       length: 1,
     },
   ]);
   const [filter, setFilter] = useState("all");
 
   const filteredTodos = todoData.filter((todo) => {
-    if (filter === "active") return !todo.Completed;
-    if (filter === "completed") return todo.Completed;
+    if (filter === "active") return !todo.completed;
+    if (filter === "completed") return todo.completed;
     return true;
   });
 
