@@ -51,6 +51,7 @@ userSchema.pre("save",function(next){
 
 userSchema.static("matchPassword", async function (email,password) {
     const user = await this.findOne({email})
+    console.log(user)
     if(!user) return false;
 
     const salt = user.salt

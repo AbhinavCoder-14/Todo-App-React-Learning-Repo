@@ -94,8 +94,8 @@ const AuthPage = () => {
     if (isLogin) {
       try{
         const {data} = await axios.post("http://localhost:8000/user/login",{
-          email:formData.email,
-          password:formData.password
+          email:formData.email.toString(),
+          password:formData.password.toString()
         },{
           withCredentials:true,
           headers:{
@@ -109,10 +109,6 @@ const AuthPage = () => {
       catch(error){
         console.log("can't login")
       }
-
-
-
-
     }
   };
 

@@ -31,16 +31,21 @@ userRoutes.get("/login", (req, res) => {
 
 userRoutes.post("/login", async (req, res) => {
     const {email, password} = req.body
-    console.log(type(email))
+    console.log(email,password)
     const user = await User.matchPassword(email,password)
+    
 
-    if(!user) return res.send({status:"Incorrect username or password"});
+    if(user){
+      const token = createTokenForUser(user)
+      res.cookie("token",token)
+      return res.send({status:"succses"})
+    }
 
-    const token = createTokenForUser(user)
+    else{
+      return res.send({status:"Incorrect username or password"});
+    }
 
-    res.cookie("token",token)
     // localStorage.setItem("token", token);
-    return res.send({status:"succses"})
 
 });
 
