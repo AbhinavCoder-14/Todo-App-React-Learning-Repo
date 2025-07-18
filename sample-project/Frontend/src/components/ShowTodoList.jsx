@@ -34,7 +34,9 @@ function ShowTodoList() {
           "Content-Type": "application/json",
         },
         withCredentials: true, // This correctly sends cookies (though not strictly needed if relying on Authorization header) // ⬅️ only if you're using cookies (optional)
-      }).then((res) => res.data);
+      }).then((res) => res.data).catch((err) => {
+        console.error("Error fetching todos:", err);
+      });
     },
     // refetchOnWindowFocus: false,
   });

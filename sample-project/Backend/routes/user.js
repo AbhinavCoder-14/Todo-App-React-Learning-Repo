@@ -31,6 +31,7 @@ userRoutes.get("/login", (req, res) => {
 
 userRoutes.post("/login", async (req, res) => {
     const {email, password} = req.body
+    console.log(type(email))
     const user = await User.matchPassword(email,password)
 
     if(!user) return res.send({status:"Incorrect username or password"});
@@ -38,7 +39,7 @@ userRoutes.post("/login", async (req, res) => {
     const token = createTokenForUser(user)
 
     res.cookie("token",token)
-    localStorage.setItem("token", token);
+    // localStorage.setItem("token", token);
     return res.send({status:"succses"})
 
 });

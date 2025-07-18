@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react';
 import * as yup from 'yup';
+import { UNSAFE_ErrorResponseImpl } from 'react-router-dom';
+import axios from 'axios';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -16,16 +18,17 @@ const AuthPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Yup validation schemas
-  const loginSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email('Please enter a valid email')
-      .required('Email is required'),
-    password: yup
-      .string()
-      .min(6, 'Password must be at least 6 characters')
-      .required('Password is required')
-  });
+  const loginSchema = true;
+  // const loginSchema = yup.object().shape({
+  //   email: yup
+  //     .string()
+  //     .email('Please enter a valid email')
+  //     .required('Email is required'),
+  //   password: yup
+  //     .string()
+  //     .min(6, 'Password must be at least 6 characters')
+  //     .required('Password is required')
+  // });
 
   const signupSchema = yup.object().shape({
     name: yup
@@ -81,23 +84,36 @@ const AuthPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const isValid = await validateForm();
-    if (!isValid) return;
+    // const isValid = await validateForm();
+    // if (!isValid) return;
 
     setIsLoading(true);
     
     // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      alert(isLogin ? 'Login successful!' : 'Account created successfully!');
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      });
-    }, 1500);
+
+    if (isLogin) {
+      try{
+        const {data} = await axios.post("http://localhost:8000/user/login",{
+          email:formData.email,
+          password:formData.password
+        },{
+          withCredentials:true,
+          headers:{
+            "Content-Type":"application/json",
+          },
+        })
+        console.log(data)
+        setIsLoading(false);
+        console.log("Login success and cookie has been generated")
+      }
+      catch(error){
+        console.log("can't login")
+      }
+
+
+
+
+    }
   };
 
   const toggleMode = () => {
@@ -110,6 +126,11 @@ const AuthPage = () => {
       confirmPassword: ''
     });
   };
+  
+  const handleLogin = () =>{
+
+  }
+
 
   return (
     <div style={styles.container}>
