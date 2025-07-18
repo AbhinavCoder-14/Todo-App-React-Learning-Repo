@@ -38,6 +38,7 @@ userRoutes.post("/login", async (req, res) => {
     const token = createTokenForUser(user)
 
     res.cookie("token",token)
+    localStorage.setItem("token", token);
     return res.send({status:"succses"})
 
 });

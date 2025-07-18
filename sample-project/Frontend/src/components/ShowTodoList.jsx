@@ -1,22 +1,17 @@
 import React, { useEffect } from "react";
 import { useState, useContext, createContext } from "react";
+import { useQuery } from "@tanstack/react-query";
+import Axios from "axios";
+
+
 import { todoDataContext } from "../pages/todo.jsx";
-import {
-  Plus,
-  X,
-  Check,
-  Edit3,
-  Trash2,
-  Calendar,
-  Filter,
-  CheckCircle2,
-  Circle,
-} from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 import "../style.css";
 
 function ShowTodoList() {
-  const { todoData, setTodoData,filter,setfilter,filteredTodos } = useContext(todoDataContext);
+  const { todoData, setTodoData, filter, setfilter, filteredTodos } =
+    useContext(todoDataContext);
 
   const handleDeleteTasks = (id) => {
     setTodoData(todoData.filter((task) => task.id != id));
@@ -30,9 +25,23 @@ function ShowTodoList() {
     );
   };
 
-  useEffect(() => {
-    console.log(todoData);
-  }, []);
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["todo"],
+    queryFn: async () => {
+      return await Axios.get("http://localhost:8000/todo/fetch", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json"
+        },
+        withCredentials: true, // ⬅️ only if you're using cookies (optional)
+      }).then((res) => (res.data));
+    },
+    // refetchOnWindowFocus: false,
+  });
+
+  // useEffect(() => {
+  //   // console.log(data);
+  // }, []);
 
   return (
     <div className="todo-item-content">

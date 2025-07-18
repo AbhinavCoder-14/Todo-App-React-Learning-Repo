@@ -13,27 +13,31 @@ import { checkForAuthCookie, restrictTo } from "./middlewares/auth.js";
 const app = express()
 const PORT = 8000;
 
-DbConnect("mongodb://127.0.0.1:27017/todo-app").then(()=>{
-    console.log("Db connected")
-}).catch((error)=> console.log("db connection error",error))
-
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials:true,
-    methods:"GET,PUT,POST,DELETE",
-    allowedHeaders:["Content-Type","Authorization"]
-}))
-
+  origin: 'http://localhost:5173',
+  credentials: true,
+  methods: "GET,PUT,POST,DELETE",
+  allowedHeaders: ["Content-Type",Autherization]
+  ]
+}));
 app.use(checkForAuthCookie("token"))
 
+DbConnect("mongodb://127.0.0.1:27017/todo-app").then(()=>{
+    console.log("Db connected")
+}).catch((error)=> console.log("db connection error",error))
 
 
 
-app.get("/",(req,res)=>{
+
+
+
+
+
+app.get("/",restrictTo,(req,res)=>{
     console.log("all set")
     res.send({response:"All Set"})
 })

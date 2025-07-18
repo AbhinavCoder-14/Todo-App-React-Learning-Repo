@@ -2,8 +2,7 @@ import React, { createContext, useEffect } from "react";
 import { useState } from "react";
 import "../style.css";
 import { Route, Routes } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import Axios from "axios";
+
 
 import AddTodoBtn from "../components/AddTodoBtn.jsx";
 import ShowTodoList from "../components/ShowTodoList.jsx";
@@ -31,15 +30,7 @@ function Todo() {
     return true;
   });
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ["todo"],
-    queryFn: async () => {
-      return await Axios.get("http://localhost:8000/todo/fetch").then(
-        (res) => res.data
-      );
-    },
-    refetchOnWindowFocus: false,
-  });
+
 
   return (
     <todoDataContext.Provider

@@ -24,7 +24,7 @@ const todoSchema = new mongoose.Schema({
     },
 
     createdBy:{
-        type:mongoose.Schema.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"user"
     }
 

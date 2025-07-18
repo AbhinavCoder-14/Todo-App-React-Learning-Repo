@@ -2,12 +2,14 @@ import express from "express";
 
 import { Todo } from "../models/todo.js";
 import {User} from "../models/user.js"
+import { restrictTo } from "../middlewares/auth.js";
 
 export const todoRoutes = express.Router();
 
-todoRoutes.post("/create",async (req,res)=>{
+todoRoutes.post("/create",restrictTo(),async (req,res)=>{
 
     try{
+        console.log("enterd on create of todo")
         const {todoName,category,priority,completed} = req.body
         const createdBy = req.user._id
         const todo = await Todo.create({todoName,completed,priority,category,createdBy})
@@ -20,14 +22,13 @@ todoRoutes.post("/create",async (req,res)=>{
 })
 
 
-todoRoutes.get("/fetch",async(req,res)=>{
+todoRoutes.get("/fetch",restrictTo(),async(req,res)=>{
     try{
         // const todo = await Todo.find({createdBy:req.user._id})
-        console.log("enter in fetch request")
-        const todo = await Todo.find({})
-        // const user = await User.find({email: req.user.email})
+        const todo = await Todo.find({createdBy:req.user._id})
+        const user = await User.find({email: req.user.email})
         // return todo
-        res.status(201).json(todo)
+        res.status(201).json({todo})
     }
 
     catch(error){
@@ -36,17 +37,7 @@ todoRoutes.get("/fetch",async(req,res)=>{
     }
 })
 
-// todoRoutes.post("/fetch",async(req,res)=>{
-//     try{
-//         const todo = await Todo.find({})
-//         res.status(201).json({stauts:"Todo Fetch successfull"})
-//     }
 
-//     catch(error){
-//         console.log(error)
-//         res.status(401).json({status:"Todo Fetch failed"})
-//     }
-// })
 
 todoRoutes.put("/update/:id",async(req,res)=>{
     try{
