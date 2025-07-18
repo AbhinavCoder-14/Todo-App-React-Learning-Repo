@@ -36,32 +36,32 @@ const userSchema = new mongoose.Schema({
 
 
 
-userSchema.pre("save",function(next){
-    const user = this;
-    if (!user.isModified("password")) return next();
+// userSchema.pre("save",function(next){
+//     const user = this;
+//     if (!user.isModified("password")) return next();
     
-    const salt = randomBytes(16).toString();
-    const hashedPassword = createHmac("sha256",salt).update(user.password).digest('hex')
+//     const salt = randomBytes(16).toString();
+//     const hashedPassword = createHmac("sha256",salt).update(user.password).digest('hex')
     
-    this.salt = salt;
-    this.password = hashedPassword;
-    return next();  
-})
+//     this.salt = salt;
+//     this.password = hashedPassword;
+//     return next();  
+// })
 
 
-userSchema.static("matchPassword", async function (email,password) {
-    const user = await this.findOne({email})
-    console.log(user)
-    if(!user) return false;
+// userSchema.static("matchPassword", async function (email,password) {
+//     const user = await this.findOne({email})
+//     console.log(user)
+//     if(!user) return false;
 
-    const salt = user.salt
-    const hashedPassword = user.password
-    const userProvidedHashPass = createHmac("sha256",salt).update(password).digest("hex")
+//     const salt = user.salt
+//     const hashedPassword = user.password
+//     const userProvidedHashPass = createHmac("sha256",salt).update(password).digest("hex")
 
-    if(hashedPassword!=userProvidedHashPass) return false;
+//     if(hashedPassword!=userProvidedHashPass) return false;
 
-    return user;
-})
+//     return user;
+// })
 
 
 
