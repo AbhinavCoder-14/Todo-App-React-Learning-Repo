@@ -19,7 +19,11 @@ function ShowTodoList() {
   const MarkAscompleted = (_id) => {
     setTodoData(
       todoData.map((todo) => {
-        return (todo._id == _id) ? { ...todo, completed: !todo.completed } : todo;
+        if (todo._id == _id){
+          console.log("Found matching todo:", todo)
+
+        }
+        // return (todo._id == _id) ? { ...todo, completed: !todo.completed } : todo;
       })
     );
   };
@@ -51,7 +55,7 @@ function ShowTodoList() {
 
   return (
     <div className="todo-item-content">
-      {!isLoading ? setTodoData(data.todo) : <p>loading...</p>}
+      {/* {!isLoading ? setTodoData(data.todo) : <p>loading...</p>} */}
       <div className="todo-content">
         {filteredTodos.map((task) => {
           return (
@@ -65,7 +69,7 @@ function ShowTodoList() {
               <div className="todo-item-left br" key={task._id}>
                 <div className="checkboxAndTask">
                   <input
-                    type="checkbox"
+                    type="checkbox" key={task._id}
                     checked={task.completed}
                     onChange={() => MarkAscompleted(task._id)}
                   />

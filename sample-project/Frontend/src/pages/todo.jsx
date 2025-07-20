@@ -14,7 +14,7 @@ export const todoDataContext = createContext();
 function Todo() {
   const [todoData, setTodoData] = useState([
     {
-      todoName: "jkl",
+      taskName: "jkl",
       category: "learning",
       priority: "high",
       completed: false,

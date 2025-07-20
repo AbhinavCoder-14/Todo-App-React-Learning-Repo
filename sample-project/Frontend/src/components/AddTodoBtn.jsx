@@ -1,23 +1,65 @@
-import React, { useContext,useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
-import {todoDataContext} from "../pages/todo.jsx"
+import { todoDataContext } from "../pages/todo.jsx";
+import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import  mutate from "@tanstack/react-query"
 
 
 function AddTodoBtn() {
-
-  const {todoData,setTodoData} = useContext(todoDataContext)
+  const { todoData, setTodoData } = useContext(todoDataContext);
 
   const [isOpenBtn, setIsOpenBtn] = useState(false);
   const [todoText, setTodoText] = useState();
   const [priority, setPriority] = useState("Medium");
   const [category, setCategory] = useState("Work");
- 
+
   const [isCompleted, setIsCompleted] = useState(false);
 
 
+  const addTodo = async () => {
+  const response = await fetch('http://localhost:8000/todo/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('An error occurred while creating the todo');
+  }
+
+  const tempList = {
+      todoName: todoText,
+      category: category,
+      priority: priority,
+      completed: isCompleted,
+    };
+
+  return response.json(tempList);
+};
+
+  const postTodo = () => {
+    const queryClient = useQueryClient();
+    const { mutate, isLoading, isError } = useMutation({
+      mutationFn: addTodo,
+      // When the mutation is successful, invalidate the 'todos' query
+      onSuccess: () => {
+        console.log("Todo added successfully!");
+        // This will cause the useQuery hook for 'todos' to refetch
+        queryClient.invalidateQueries({ queryKey: ["todos"] });
+      },
+    });
+  };
+
   const handleSubmit = () => {
+
+    mutate({ tempList, completed: false });
     const tempList = {
-      taskName: todoText,
+      todoName: todoText,
       category: category,
       priority: priority,
       completed: isCompleted,
@@ -37,7 +79,8 @@ function AddTodoBtn() {
   return (
     <div>
       {!isOpenBtn ? (
-        <button className="add-todo-btn"
+        <button
+          className="add-todo-btn"
           onClick={() => {
             setIsOpenBtn(!isOpenBtn);
           }}
@@ -48,9 +91,7 @@ function AddTodoBtn() {
         <div>
           <div className="add-todo-form">
             <div className="form-group">
-              <label className="form-label">
-                What needs to be done?
-              </label>
+              <label className="form-label">What needs to be done?</label>
               <input
                 type="text"
                 value={todoText}
@@ -64,9 +105,7 @@ function AddTodoBtn() {
 
             <div className="form-grid">
               <div className="form-group">
-                <label className="form-label">
-                  Priority
-                </label>
+                <label className="form-label">Priority</label>
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value)}
@@ -79,9 +118,7 @@ function AddTodoBtn() {
               </div>
 
               <div className="form-group">
-                <label className="form-label">
-                  Category
-                </label>
+                <label className="form-label">Category</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
@@ -96,10 +133,7 @@ function AddTodoBtn() {
             </div>
 
             <div className="form-actions">
-              <button
-                onClick={handleSubmit}
-                className="btn primary"
-              >
+              <button onClick={handleSubmit} className="btn primary">
                 Add Todo
               </button>
               <button
