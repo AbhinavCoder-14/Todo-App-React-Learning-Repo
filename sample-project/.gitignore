@@ -1,3 +1,3 @@
-node_modules/
-
-.env
+PORT = 8000
+secretKey = 'JustApieceofShit'
+MONGO_URL = "mongodb+srv://kanikayadav061:hO8tu4QsQVphf4ZF@cluster0.ccrcrkf.mongodb.net/"

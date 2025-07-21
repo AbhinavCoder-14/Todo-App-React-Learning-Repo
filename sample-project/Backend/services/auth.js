@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 
-const secretKey = 'JustApieceofShit'
+
 export const createTokenForUser = (user)=> {
     return jwt.sign({_id:user._id,
         email:user.email,
