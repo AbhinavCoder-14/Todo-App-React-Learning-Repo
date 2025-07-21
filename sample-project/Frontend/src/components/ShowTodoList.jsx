@@ -14,7 +14,7 @@ function ShowTodoList() {
 
   const handleDeleteTasks = (_id) => {
     setTodoData(todoData.filter((task) => task._id != _id));
-    
+
   };
 
   const MarkAscompleted = (_id) => {
@@ -29,7 +29,7 @@ function ShowTodoList() {
     );
   };
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["data"],
+    queryKey: ["todo"],
     queryFn: async () => {
       return await Axios.get("http://localhost:8000/todo/fetch", {
         // From Frontend/src/components/ShowTodoList.jsx

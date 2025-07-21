@@ -6,7 +6,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import useCreateTodo from "../api/useCreateTodo.js";
 
-
 function AddTodoBtn() {
   const { todoData, setTodoData } = useContext(todoDataContext);
 
@@ -17,29 +16,29 @@ function AddTodoBtn() {
 
   const [isCompleted, setIsCompleted] = useState(false);
 
-
-    const { mutate: createTodo, isPending } = useCreateTodo();
-
+  const { mutate: createTodo, isPending } = useCreateTodo();
 
   const handleSubmit = () => {
-
     const tempList = {
       todoName: todoText,
       category: category,
       priority: priority,
       completed: isCompleted,
     };
-    setTodoData([...todoData, tempList]);
-    setTodoText("");
-    setCategory("Work");
-    setPriority("Medium");
-    setIsOpenBtn(false);
-    console.log(todoData);
+    // setTodoData([...todoData, tempList]);
 
-    createTodo(tempList)
+    // console.log(todoData);
 
-
+    createTodo(tempList, {
+      onSuccess: () => {
+        setTodoText("");
+        setCategory("Work");
+        setPriority("Medium");
+        setIsOpenBtn(false);
+      },
+    });
   };
+  
   useEffect(() => {
     console.log(todoData);
   }, [todoData]);
