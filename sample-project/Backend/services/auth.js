@@ -5,7 +5,7 @@ export const createTokenForUser = (user)=> {
     return jwt.sign({_id:user._id,
         email:user.email,
         fullName:user.fullName,
-    },process.env.secretKey)
+    },process.env.JWT_SECRET)
 }
 
 
