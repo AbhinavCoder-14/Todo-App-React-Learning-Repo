@@ -11,11 +11,11 @@ function FilterBar(){
     const { todoData, setTodoData,filter,setFilter,filteredTodos } = useContext(todoDataContext);
     
 
-    const completedCount = todoData.filter(todo=>{
+    const completedCount = todoData.filter((todo)=>{
         return (todo.completed)
     }).length
 
-    const active = todoData.filter(todo=>{
+    const active = todoData.filter((todo)=>{
         return (!todo.completed)
     }).length
 

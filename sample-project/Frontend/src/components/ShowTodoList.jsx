@@ -14,6 +14,7 @@ function ShowTodoList() {
 
   const handleDeleteTasks = (_id) => {
     setTodoData(todoData.filter((task) => task._id != _id));
+    
   };
 
   const MarkAscompleted = (_id) => {
@@ -21,9 +22,9 @@ function ShowTodoList() {
       todoData.map((todo) => {
         if (todo._id == _id){
           console.log("Found matching todo:", todo)
+          return (todo._id == _id) ? { ...todo, completed: !todo.completed } : todo;
 
         }
-        // return (todo._id == _id) ? { ...todo, completed: !todo.completed } : todo;
       })
     );
   };
@@ -46,12 +47,12 @@ function ShowTodoList() {
     refetchOnWindowFocus: false,
   });
 
-  function printTodos() {
-    console.log(isLoading);
-    console.log(todoData);
-  }
+    useEffect(() => {
 
-  // setTodoData(data)
+    if (data && data.todo) {
+      setTodoData(data.todo);
+    }
+  }, [data,setTodoData]);
 
   return (
     <div className="todo-item-content">
@@ -59,7 +60,7 @@ function ShowTodoList() {
       <div className="todo-content">
         {filteredTodos.map((task) => {
           return (
-            <div
+            <div key={task._id}
               className={
                 task.completed
                   ? `todo-text completed-task todo-item-row setRowColor-${task.priority.toLowerCase()}`

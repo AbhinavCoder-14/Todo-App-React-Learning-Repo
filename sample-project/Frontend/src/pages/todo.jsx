@@ -13,13 +13,7 @@ export const todoDataContext = createContext();
 
 function Todo() {
   const [todoData, setTodoData] = useState([
-    {
-      taskName: "jkl",
-      category: "learning",
-      priority: "high",
-      completed: false,
-      length: 1,
-    },
+    
   ]);
   const [filter, setFilter] = useState("all");
 
@@ -33,7 +27,7 @@ function Todo() {
 
   return (
     <todoDataContext.Provider
-      value={{ todoData, setTodoData, filter, setFilter, filteredTodos }}
+      value={{ todoData, setTodoData, filter, setFilter,filteredTodos }}
     >
       <Header />
       <div className="todo-container">

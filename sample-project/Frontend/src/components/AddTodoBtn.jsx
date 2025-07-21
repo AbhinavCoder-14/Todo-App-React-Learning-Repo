@@ -3,7 +3,8 @@ import { useState } from "react";
 import { todoDataContext } from "../pages/todo.jsx";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import  mutate from "@tanstack/react-query"
+
+import useCreateTodo from "../api/useCreateTodo.js";
 
 
 function AddTodoBtn() {
@@ -17,60 +18,27 @@ function AddTodoBtn() {
   const [isCompleted, setIsCompleted] = useState(false);
 
 
-  const addTodo = async () => {
-  const response = await fetch('http://localhost:8000/todo/create', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+    const { mutate: createTodo, isPending } = useCreateTodo();
 
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error('An error occurred while creating the todo');
-  }
-
-  const tempList = {
-      todoName: todoText,
-      category: category,
-      priority: priority,
-      completed: isCompleted,
-    };
-
-  return response.json(tempList);
-};
-
-  const postTodo = () => {
-    const queryClient = useQueryClient();
-    const { mutate, isLoading, isError } = useMutation({
-      mutationFn: addTodo,
-      // When the mutation is successful, invalidate the 'todos' query
-      onSuccess: () => {
-        console.log("Todo added successfully!");
-        // This will cause the useQuery hook for 'todos' to refetch
-        queryClient.invalidateQueries({ queryKey: ["todos"] });
-      },
-    });
-  };
 
   const handleSubmit = () => {
 
-    mutate({ tempList, completed: false });
     const tempList = {
       todoName: todoText,
       category: category,
       priority: priority,
       completed: isCompleted,
     };
-
     setTodoData([...todoData, tempList]);
     setTodoText("");
     setCategory("Work");
     setPriority("Medium");
     setIsOpenBtn(false);
     console.log(todoData);
+
+    createTodo(tempList)
+
+
   };
   useEffect(() => {
     console.log(todoData);
