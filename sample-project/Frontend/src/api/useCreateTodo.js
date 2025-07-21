@@ -1,31 +1,29 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import react, { useContext } from "react";
 
-const createTodoAPI = async (todoData) => {
-  const responce = await axios.post(
-    "http://localhost:8000/todo/create",
-    todoData,
-    {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  return responce.json;
+// This is your API function
+const createTodoAPI = async (newTodo) => {
+  const { data } = await axios.post("http://localhost:8000/todo/create", newTodo, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    withCredentials: true,
+  });
+  return data;
 };
 
-const useCreateTodo = async () => {
+// This is your custom hook
+const useCreateTodo = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: createTodoAPI,
-    onSuccess: (data) => {
-      console.log("Todo created! Invalidating 'data' query...");
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todo"] });
     },
     onError: (error) => {
-      console.log({ status: "failed" });
+      console.error("Failed to create todo:", error);
+      alert("Could not create the todo. Please try again.");
     },
   });
 };
