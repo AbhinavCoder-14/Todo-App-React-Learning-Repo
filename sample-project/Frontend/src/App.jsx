@@ -19,8 +19,8 @@ function App() {
   return(
     <QueryClientProvider client={client}>
       <Routes>
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/" element={<Todo />} />
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/todo" element={<Todo />} />
       </Routes>
     </QueryClientProvider>
     
