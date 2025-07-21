@@ -4,6 +4,9 @@ import * as yup from 'yup';
 import { UNSAFE_ErrorResponseImpl } from 'react-router-dom';
 import axios from 'axios';
 
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -93,7 +96,7 @@ const AuthPage = () => {
 
     if (isLogin) {
       try{
-        const {data} = await axios.post("http://localhost:8000/user/login",{
+        const {data} = await axios.post(`${API_URL}/user/auth`,{
           email:formData.email.toString(),
           password:formData.password.toString()
         },{
