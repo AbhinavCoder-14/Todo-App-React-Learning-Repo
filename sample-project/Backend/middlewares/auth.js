@@ -38,6 +38,7 @@ export const restrictTo = () => {
     return (req, res, next) => {
         if (!req.user) {
             return res.status(401).json({ status: "Authentication required" });
+            res.redirect()
         }
         return next()
     }

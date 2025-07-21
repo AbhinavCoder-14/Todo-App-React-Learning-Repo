@@ -1,4 +1,6 @@
 import express from "express"
+import 'dotenv/config'; 
+import path from "path"
 import cors from "cors"
 import cookieParser from "cookie-parser";
 
@@ -11,7 +13,14 @@ import { checkForAuthCookie, restrictTo } from "./middlewares/auth.js";
 
 
 const app = express()
-const PORT = 8000;
+const PORT = process.env.PORT || 8001
+
+DbConnect(process.env.MONGO_URL).then(()=>{
+    console.log("Db connected")
+}).catch((error)=> console.log("db connection error",error))
+// DbConnect("mongodb://127.0.0.1:27017/todo-app").then(()=>{
+//     console.log("Db connected")
+// }).catch((error)=> console.log("db connection error",error))
 
 
 app.use(express.urlencoded({extended:true}))
@@ -26,9 +35,6 @@ app.use(cors({
 
 app.use(checkForAuthCookie("token"))
 
-DbConnect("mongodb://127.0.0.1:27017/todo-app").then(()=>{
-    console.log("Db connected")
-}).catch((error)=> console.log("db connection error",error))
 
 
 
