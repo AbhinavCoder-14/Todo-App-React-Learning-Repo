@@ -1,6 +1,6 @@
 import axios from "axios";
 import { dataTagErrorSymbol, useMutation, useQueryClient } from "@tanstack/react-query";
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const deleteTodoAPI = async (todoId) => {
   const { data } = await axios.delete(`${API_URL}/todo/delete/${todoId}`, {

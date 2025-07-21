@@ -8,6 +8,7 @@ import { Trash2 } from "lucide-react";
 
 import "../style.css";
 import useDeleteTodo from "../api/useDeleteTodo.js";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function ShowTodoList() {
   const { todoData, setTodoData, filter, setfilter, filteredTodos } =
