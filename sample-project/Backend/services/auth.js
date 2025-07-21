@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken"
 import 'dotenv/config'; 
-
+const JWT_SECRET = "JustApieceofShit"
 export const createTokenForUser = (user)=> {
     return jwt.sign({_id:user._id,
         email:user.email,
         fullName:user.fullName,
-    },process.env.JWT_SECRET)
+    },JWT_SECRET)
 }
 
 
