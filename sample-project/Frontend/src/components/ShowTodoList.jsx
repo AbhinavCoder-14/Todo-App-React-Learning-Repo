@@ -7,13 +7,26 @@ import { todoDataContext } from "../pages/todo.jsx";
 import { Trash2 } from "lucide-react";
 
 import "../style.css";
+import useDeleteTodo from "../api/useDeleteTodo.js";
 
 function ShowTodoList() {
   const { todoData, setTodoData, filter, setfilter, filteredTodos } =
     useContext(todoDataContext);
 
+    const { mutate: deleteTodo, isPending } = useDeleteTodo();
   const handleDeleteTasks = (_id) => {
-    setTodoData(todoData.filter((task) => task._id != _id));
+    // setTodoData(todoData.filter((task) => task._id != _id));
+
+
+    deleteTodo(_id,{
+      onSuccess:()=>{
+        console.log(`Todo delete successfully of id - ${_id}`)
+      }
+    })
+
+
+
+
 
   };
 
