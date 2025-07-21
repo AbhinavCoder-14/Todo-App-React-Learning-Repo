@@ -27,7 +27,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://debug-my-day.onrender.com',
+    origin: 'https://debug-my-day-e7q7.onrender.com',
     credentials: true,
     methods: "GET,PUT,POST,DELETE",
     allowedHeaders: ["Content-Type", "Authorization"] // Corrected: "Authorization"
