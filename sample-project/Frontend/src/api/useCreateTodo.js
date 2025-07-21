@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 // This is your API function
 const createTodoAPI = async (newTodo) => {
-  const { data } = await axios.post("http://localhost:8000/todo/create", newTodo, {
+  const { data } = await axios.post(`${API_URL}/todo/create`, newTodo, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },

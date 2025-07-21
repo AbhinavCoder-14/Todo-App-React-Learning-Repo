@@ -3,7 +3,7 @@ import { dataTagErrorSymbol, useMutation, useQueryClient } from "@tanstack/react
 
 
 const deleteTodoAPI = async (todoId) => {
-  const { data } = await axios.update(`http://localhost:8000/todo/udpate/${todoId}`, {
+  const { data } = await axios.update(`${API_URL}/todo/udpate/${todoId}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },

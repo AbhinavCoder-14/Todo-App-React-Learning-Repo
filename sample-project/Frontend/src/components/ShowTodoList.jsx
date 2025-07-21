@@ -44,7 +44,7 @@ function ShowTodoList() {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["todo"],
     queryFn: async () => {
-      return await Axios.get("http://localhost:8000/todo/fetch", {
+      return await Axios.get(`${API_URL}/todo/fetch`, {
         // From Frontend/src/components/ShowTodoList.jsx
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // This is correct for header-based auth
