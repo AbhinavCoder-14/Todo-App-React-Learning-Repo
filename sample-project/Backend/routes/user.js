@@ -50,7 +50,7 @@ userRoutes.post("/login", async (req, res) => {
   res.cookie("token", token,{
     
     httpOnly: true,
-    secure: false, // set to true in production (HTTPS)
+    secure: true, // set to true in production (HTTPS)
     sameSite: "lax", // or "none" if cross-domain and using HTTPS
 
   });

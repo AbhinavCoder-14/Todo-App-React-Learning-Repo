@@ -96,7 +96,7 @@ const AuthPage = () => {
 
     if (isLogin) {
       try{
-        const {data} = await axios.post(`${API_URL}/user/auth`,{
+        const {data} = await axios.post(`${API_URL}/user/login`,{
           email:formData.email.toString(),
           password:formData.password.toString()
         },{
