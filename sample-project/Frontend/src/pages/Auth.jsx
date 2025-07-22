@@ -86,8 +86,8 @@ const AuthPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const isValid = await validateForm();
-    if (!isValid) return console.log("Form validation failed");
+    // const isValid = await validateForm();
+    // if (!isValid) return console.log("Form validation failed");
 
     setIsLoading(true);
 
