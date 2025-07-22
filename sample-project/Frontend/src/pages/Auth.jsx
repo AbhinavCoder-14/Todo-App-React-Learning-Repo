@@ -116,7 +116,7 @@ const AuthPage = () => {
 
       }
       catch(error){
-        console.log("can't login")
+        console.log("can't login",error)
       }
     }
   };
