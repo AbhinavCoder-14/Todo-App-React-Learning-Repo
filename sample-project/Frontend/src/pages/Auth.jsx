@@ -20,7 +20,7 @@ const AuthPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Yup validation schemas
-  // const loginSchema = true;
+  const loginSchema = true;
   // const loginSchema = yup.object().shape({
   //   email: yup
   //     .string()
