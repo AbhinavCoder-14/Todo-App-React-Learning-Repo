@@ -109,14 +109,14 @@ const AuthPage = () => {
         console.log(data)
         setIsLoading(false);
         console.log("Login success and cookie has been generated")
-        const token = localStorage.getItem("token")
-        if (token){
-          window.location.href = '/todos';
-        }
+        // const token = localStorage.getItem("token")
+        // if (token){
+        //   window.location.href = '/todos';
+        // }
 
       }
       catch(error){
-        console.log("can't login",error)
+        console.log(`login failed ${error}`)
       }
     }
   };
