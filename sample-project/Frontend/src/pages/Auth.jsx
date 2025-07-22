@@ -148,20 +148,19 @@ const AuthPage = () => {
       }
     }
   };
-};
 
-const toggleMode = () => {
-  setIsLogin(!isLogin);
-  setErrors({});
-  setFormData({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-};
+  const toggleMode = () => {
+    setIsLogin(!isLogin);
+    setErrors({});
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+  };
 
-const handleLogin = () => {};
+
 
 return (
   <div style={styles.container}>
@@ -367,7 +366,7 @@ return (
     </div>
   </div>
 );
-
+};
 const styles = {
   container: {
     minHeight: "100vh",
