@@ -136,8 +136,8 @@ const AuthPage = () => {
         console.log(data)
         setIsLoading(false);
         console.log("Login success and cookie has been generated")
-        if (data.token){
-          window.location.href = '/todo';
+        if (data.status == "success"){
+          setIsLogin(true)
         }
 
       }
