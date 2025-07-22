@@ -12,7 +12,7 @@ export const createTokenForUser = (user)=> {
 export const validateTokenForUser = (token) =>{
     if(!token) return null;
     try{
-        return jwt.verify(token,secretKey)
+        return jwt.verify(token,JWT_SECRET)
     }catch{
         throw new Error("cant verify the token");
     }
