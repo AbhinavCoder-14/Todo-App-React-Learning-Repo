@@ -87,8 +87,8 @@ const AuthPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // const isValid = await validateForm();
-    // if (!isValid) return;
+    const isValid = await validateForm();
+    if (!isValid) return;
 
     setIsLoading(true);
     
@@ -109,15 +109,45 @@ const AuthPage = () => {
         console.log(data)
         setIsLoading(false);
         console.log("Login success and cookie has been generated")
-        // const token = localStorage.getItem("token")
         if (data.token){
-          window.location.href = '/todos';
+          window.location.href = '/todo';
         }
 
       }
       catch(error){
         console.log(`login failed ${error}`)
       }
+    }
+
+    if(!isLogin){
+
+      try{
+        const {data} = await axios.post(`${API_URL}/user/signup`,{
+          email:formData.email.toString(),
+          password:formData.password.toString(),
+          fullName:formData.name.toString()
+        },{
+          withCredentials:true,
+          headers:{
+            "Content-Type":"application/json",
+          },
+        })
+
+        console.log(data)
+        setIsLoading(false);
+        console.log("Login success and cookie has been generated")
+        if (data.token){
+          window.location.href = '/todo';
+        }
+
+      }
+      catch(error){
+        console.log(`login failed ${error}`)
+      }
+    }
+
+      
+
     }
   };
 

@@ -18,7 +18,7 @@ userRoutes.post("/signup", async (req, res) => {
     user.password = await bcrypt.hash(password, 10);
     await user.save();
     return res.status(201).json({
-      message: "signup success",
+      status: "success",
     });
   } catch (err) {
     return res.status(500).json({
