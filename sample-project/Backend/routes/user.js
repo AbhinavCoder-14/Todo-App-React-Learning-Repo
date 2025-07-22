@@ -51,12 +51,13 @@ userRoutes.post("/login", async (req, res) => {
     
     httpOnly: true,
     secure: true, // set to true in production (HTTPS)
-    sameSite: "lax", // or "none" if cross-domain and using HTTPS
-
+    sameSite: "none", // or "none" if cross-domain and using HTTPS
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    path: "/",
   });
-  return res.status(200).json({ status: "success" });
+  localStorage.setItem("token", token);
+  return res.status(200).json({ status: "success",token });
 
-  // localStorage.setItem("token", token);
 });
 
 userRoutes.post("/logout", (req, res) => {
